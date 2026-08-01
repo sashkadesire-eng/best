@@ -1,0 +1,16 @@
+{% load cms_tags %}
+{% load i18n %}
+<section {% if section.anchor_id %}id="{{ section.anchor_id }}"{% endif %} class="mx-auto max-w-7xl scroll-mt-24 px-4 py-16 sm:px-6 lg:px-8">
+  <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-sky-500 via-sky-600 to-teal-500 p-8 text-center text-white shadow-2xl sm:p-12">
+    <div class="relative z-10 mx-auto max-w-3xl space-y-4">
+      <h2 class="text-3xl font-black tracking-tight sm:text-4xl">{{ section.title }}</h2>
+      {% if section.description %}<p class="text-sm font-medium text-sky-100 sm:text-base">{{ section.description }}</p>{% endif %}
+      {% if section.config.button_url %}
+      <a href="/{{ lang_code }}{{ section.config.button_url }}"
+         class="inline-block rounded-2xl bg-white px-8 py-4 text-base font-black text-slate-900 shadow-xl transition-all hover:scale-105 hover:bg-slate-100">
+        {{ section.config|get_item:"button_label"|get_item:lang_code|default:"Book SUP Now" }}
+      </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
