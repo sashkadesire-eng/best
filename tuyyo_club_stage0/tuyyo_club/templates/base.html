@@ -1,0 +1,54 @@
+{% load static i18n icons %}<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% include "partials/_theme_script.html" %}
+  {% include "partials/_meta.html" %}
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="flex min-h-screen flex-col bg-slate-50 font-sans text-slate-900 transition-colors duration-200 selection:bg-sky-500 selection:text-white dark:bg-slate-950 dark:text-slate-100">
+  {% include "partials/_navbar.html" %}
+  <main class="flex-1">{% block content %}{% endblock %}</main>
+  {% include "partials/_footer.html" %}
+  {% include "partials/_cookie_banner.html" %}
+  {% include "partials/_whatsapp_fab.html" %}
+
+  <script>
+    // Тема (без FOUC — виставляється в <head>)
+    document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem('tuyyo_theme', next); } catch (e) {}
+      });
+    });
+    // Мобільне меню
+    (function () {
+      var menu = document.querySelector('[data-mobile-menu]');
+      var openIcon = document.querySelector('[data-menu-open-icon]');
+      var closeIcon = document.querySelector('[data-menu-close-icon]');
+      document.querySelectorAll('[data-menu-toggle]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          menu.classList.toggle('hidden');
+          openIcon.classList.toggle('hidden');
+          closeIcon.classList.toggle('hidden');
+        });
+      });
+    })();
+    // Cookie-банер (LOPDGDD/GDPR)
+    (function () {
+      var banner = document.querySelector('[data-cookie-banner]');
+      try {
+        if (!localStorage.getItem('tuyyo_cookie_consent')) banner.classList.remove('hidden');
+      } catch (e) { banner.classList.remove('hidden'); }
+      document.querySelector('[data-cookie-accept]').addEventListener('click', function () {
+        try { localStorage.setItem('tuyyo_cookie_consent', 'accepted'); } catch (e) {}
+        banner.classList.add('hidden');
+      });
+    })();
+  </script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

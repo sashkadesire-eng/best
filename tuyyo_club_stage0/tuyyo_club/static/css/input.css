@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+/* Темна тема через data-theme (без FOUC — скрипт у <head>) */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* Сканування шаблонів Django */
+@source "../../templates";
+
+/* Дизайн-токени 1:1 з index.css референсу */
+@theme {
+  --animate-fade-in: fade-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-slide-up: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-scale-up: scale-up 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slide-up {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  @keyframes scale-up {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 65px;
+  }
+}
