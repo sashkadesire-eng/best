@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-01 19:42+0200\n"
+"POT-Creation-Date: 2026-08-01 19:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,18 +29,6 @@ msgid ""
 "SUP paddleboard rental with direct beach & hotel delivery in Benidorm, "
 "Altea, Villajoyosa, Calpe & Alicante. From €35. No credit card required."
 msgstr ""
-
-msgid "Tariffs"
-msgstr "Tarifas"
-
-msgid "Gallery"
-msgstr "Galería"
-
-msgid "SUP Guide"
-msgstr "Guía SUP"
-
-msgid "FAQ"
-msgstr "FAQ"
 
 msgid "Costa Blanca, Spain"
 msgstr "Costa Blanca, España"
@@ -76,11 +64,6 @@ msgstr "Ver Política de Cookies"
 msgid "Accept Cookies"
 msgstr "Aceptar Cookies"
 
-msgid ""
-"Mobile Stand-Up Paddleboard rental service with direct beach and hotel "
-"delivery across Benidorm, Altea, Villajoyosa, Calpe, and Alicante."
-msgstr ""
-
 msgid "Legal Entity:"
 msgstr "Entidad Legal:"
 
@@ -103,15 +86,6 @@ msgstr "Alquiler SUP %(name)s"
 msgid "Legal Notice"
 msgstr "Aviso Legal"
 
-msgid "Terms & Conditions"
-msgstr "Términos y Condiciones"
-
-msgid "Privacy Policy"
-msgstr "Política de Privacidad"
-
-msgid "Cookie Policy"
-msgstr "Política de Cookies"
-
 msgid "Contact & Payment"
 msgstr "Contacto y Pago"
 
@@ -126,9 +100,6 @@ msgstr "para los amantes del SUP en la Costa Blanca"
 
 msgid "beaches"
 msgstr "playas"
-
-msgid "Terms & Safety"
-msgstr "Términos y Seguridad"
 
 msgid "Toggle theme"
 msgstr "Cambiar tema"
@@ -1091,3 +1062,27 @@ msgstr ""
 
 msgid "Connect, get help, or contribute"
 msgstr ""
+
+#~ msgid "Tariffs"
+#~ msgstr "Tarifas"
+
+#~ msgid "Gallery"
+#~ msgstr "Galería"
+
+#~ msgid "SUP Guide"
+#~ msgstr "Guía SUP"
+
+#~ msgid "FAQ"
+#~ msgstr "FAQ"
+
+#~ msgid "Terms & Conditions"
+#~ msgstr "Términos y Condiciones"
+
+#~ msgid "Privacy Policy"
+#~ msgstr "Política de Privacidad"
+
+#~ msgid "Cookie Policy"
+#~ msgstr "Política de Cookies"
+
+#~ msgid "Terms & Safety"
+#~ msgstr "Términos y Seguridad"

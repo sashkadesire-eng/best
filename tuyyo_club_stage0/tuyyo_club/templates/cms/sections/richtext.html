@@ -1,0 +1,4 @@
+<section {% if section.anchor_id %}id="{{ section.anchor_id }}"{% endif %} class="mx-auto max-w-3xl scroll-mt-24 px-4 py-8">
+  {% if section.title %}<h2 class="mb-4 text-2xl font-black text-slate-900 dark:text-white">{{ section.title }}</h2>{% endif %}
+  <div class="space-y-3 text-sm leading-relaxed text-slate-700 dark:text-slate-300">{{ section.body|safe }}</div>
+</section>

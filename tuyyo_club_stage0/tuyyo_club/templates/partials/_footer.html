@@ -2,7 +2,7 @@
 <footer class="border-t border-slate-800 bg-slate-950 text-sm text-slate-400">
   <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5 lg:gap-12">
-      {# Бренд + юридичний блок (1:1 m_2.html) #}
+      {# Бренд + юридичний блок (1:1 m_2.html, дані з SiteSettings) #}
       <div class="space-y-4 lg:col-span-2">
         <div class="flex items-center gap-3">
           <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-sky-500 to-teal-400 p-0.5">
@@ -12,12 +12,10 @@
           </div>
           <div>
             <span class="text-xl font-bold tracking-tight text-white">{{ site.name }}</span>
-            <span class="block text-[10px] font-semibold uppercase tracking-widest text-sky-400">Costa Blanca SUP Rental</span>
+            <span class="block text-[10px] font-semibold uppercase tracking-widest text-sky-400">{{ site.tagline }}</span>
           </div>
         </div>
-        <p class="max-w-sm text-xs leading-relaxed text-slate-400">
-          {% blocktrans %}Mobile Stand-Up Paddleboard rental service with direct beach and hotel delivery across Benidorm, Altea, Villajoyosa, Calpe, and Alicante.{% endblocktrans %}
-        </p>
+        <p class="max-w-sm text-xs leading-relaxed text-slate-400">{{ site.footer_description }}</p>
         <div class="space-y-1.5 border-l-2 border-sky-500/40 pl-3 text-xs text-slate-400">
           <p><strong class="text-slate-200">{% trans "Legal Entity:" %}</strong> {{ site.company_legal_name }}</p>
           <p><strong class="text-slate-200">{% trans "CIF / NIF:" %}</strong> {{ site.cif }}</p>
@@ -38,16 +36,15 @@
         </ul>
       </div>
 
-      {# Legal #}
+      {# Legal (з БД: MenuLink placement=footer) #}
       <div class="space-y-3">
         <h3 class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-200">
           {% icon 'shield-check' 'w-3.5 h-3.5 text-teal-400' %}{% trans "Legal Notice" %}
         </h3>
         <ul class="space-y-2 text-xs">
-          <li><a href="/{{ LANGUAGE_CODE }}/terms-and-safety/" class="transition-colors hover:text-sky-400">{% trans "Terms & Conditions" %}</a></li>
-          <li><a href="/{{ LANGUAGE_CODE }}/privacy-policy/" class="transition-colors hover:text-sky-400">{% trans "Privacy Policy" %}</a></li>
-          <li><a href="/{{ LANGUAGE_CODE }}/cookie-policy/" class="transition-colors hover:text-sky-400">{% trans "Cookie Policy" %}</a></li>
-          <li><a href="/{{ LANGUAGE_CODE }}/legal-notice/" class="transition-colors hover:text-sky-400">{% trans "Legal Notice" %}</a></li>
+          {% for link in menu_links_footer %}
+          <li><a href="/{{ LANGUAGE_CODE }}{{ link.url }}" class="transition-colors hover:text-sky-400">{{ link.label }}</a></li>
+          {% endfor %}
         </ul>
       </div>
 
@@ -66,7 +63,6 @@
       </div>
     </div>
 
-    {# Нижній бар #}
     <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-900 pt-6 text-xs text-slate-500 sm:flex-row">
       <p>{{ site.copyright }} — {% trans "All rights reserved." %}</p>
       <div class="flex items-center gap-1 text-[11px]">
