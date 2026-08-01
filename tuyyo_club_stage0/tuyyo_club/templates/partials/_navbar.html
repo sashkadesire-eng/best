@@ -1,4 +1,4 @@
-{% load i18n icons %}
+{% load i18n icons cms_tags %}
 <header class="sticky top-0 z-50 border-b bg-white/90 text-slate-800 shadow-sm backdrop-blur-md transition-colors duration-200 dark:border-slate-800 dark:bg-slate-900/90 dark:text-white">
   <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
     {# Логотип #}
@@ -14,12 +14,11 @@
       </div>
     </a>
 
-    {# Desktop-навігація #}
+    {# Desktop-навігація (з БД: MenuLink) #}
     <nav class="hidden items-center gap-6 text-sm font-semibold lg:flex">
       <div class="group relative">
         <button class="flex items-center gap-1 py-2 transition-colors hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400">
-          {% icon 'map-pin' 'w-3.5 h-3.5 text-sky-500' %}
-          {% trans "Locations" %}
+          {% icon 'map-pin' 'w-3.5 h-3.5 text-sky-500' %}{% trans "Locations" %}
         </button>
         <div class="absolute left-0 top-full z-50 hidden w-56 rounded-2xl border border-slate-200 bg-white p-2 shadow-xl transition-all group-hover:block dark:border-slate-800 dark:bg-slate-900">
           {% for loc in site.locations %}
@@ -31,11 +30,12 @@
           {% endfor %}
         </div>
       </div>
-      <a href="/#tariffs" class="flex items-center gap-1 transition-colors hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400">{% icon 'sparkles' 'w-3.5 h-3.5 text-sky-500' %}<span>{% trans "Tariffs" %}</span></a>
-      <a href="/#gallery" class="flex items-center gap-1 transition-colors hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400">{% icon 'image' 'w-3.5 h-3.5 text-teal-500' %}<span>{% trans "Gallery" %}</span></a>
-      <a href="/#guide" class="flex items-center gap-1 transition-colors hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400">{% icon 'file-text' 'w-3.5 h-3.5 text-amber-500' %}<span>{% trans "SUP Guide" %}</span></a>
-      <a href="/#faq" class="flex items-center gap-1 transition-colors hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400">{% icon 'help-circle' 'w-3.5 h-3.5 text-sky-500' %}<span>{% trans "FAQ" %}</span></a>
-      <a href="/{{ LANGUAGE_CODE }}/terms-and-safety/" class="transition-colors hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400">{% trans "Terms & Safety" %}</a>
+      {% for link in menu_links %}
+      <a href="{% if link.url|slice:':1' == '#' %}/{{ LANGUAGE_CODE }}/{{ link.url }}{% else %}/{{ LANGUAGE_CODE }}{{ link.url }}{% endif %}"
+         class="flex items-center gap-1 transition-colors hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400">
+        {% if link.icon %}{% icon link.icon 'w-3.5 h-3.5 text-sky-500' %}{% endif %}<span>{{ link.label }}</span>
+      </a>
+      {% endfor %}
     </nav>
 
     {# Контроли: тема / мова / CTA #}
@@ -48,15 +48,18 @@
       <div class="flex items-center rounded-xl border border-slate-200 bg-slate-100 p-0.5 text-xs dark:border-slate-700 dark:bg-slate-800">
         {% get_available_languages as LANGS %}
         {% for code, name in LANGS %}
-          {% translate_url code as lang_url %}
+          {% if lang_urls %}{% with url=lang_urls|get_item:code %}
+          <a href="{% if url %}{{ url }}{% else %}{% translate_url code as fb %}{{ fb }}{% endif %}"
+             class="rounded-lg px-2.5 py-1 font-bold transition-all {% if code == LANGUAGE_CODE %}bg-sky-500 text-white shadow-sm{% else %}text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200{% endif %}">{{ code|upper }}</a>
+          {% endwith %}{% else %}{% translate_url code as lang_url %}
           <a href="{{ lang_url }}"
              class="rounded-lg px-2.5 py-1 font-bold transition-all {% if code == LANGUAGE_CODE %}bg-sky-500 text-white shadow-sm{% else %}text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200{% endif %}">{{ code|upper }}</a>
+          {% endif %}
         {% endfor %}
       </div>
       <a href="{% url 'booking' %}"
          class="flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-sky-500 to-teal-500 px-4 py-2 text-sm font-extrabold text-white shadow-md shadow-sky-500/20 transition-all hover:from-sky-600 hover:to-teal-600 active:scale-95">
-        {% icon 'sparkles' 'w-4 h-4 fill-white' %}
-        {% trans "Book SUP Now" %}
+        {% icon 'sparkles' 'w-4 h-4 fill-white' %}{% trans "Book SUP Now" %}
       </a>
     </div>
 
@@ -68,8 +71,12 @@
         <span class="dark:hidden">{% icon 'moon' 'w-4 h-4 text-slate-700' %}</span>
       </button>
       {% get_available_languages as LANGS_M %}
-      {% for code, name in LANGS_M %}{% if code != LANGUAGE_CODE %}{% translate_url code as alt_url %}
-      <a href="{{ alt_url }}" class="rounded-lg border border-slate-200 bg-slate-100 px-2.5 py-1 text-xs font-bold uppercase text-sky-600 dark:border-slate-700 dark:bg-slate-800 dark:text-sky-400">{{ code }}</a>
+      {% for code, name in LANGS_M %}{% if code != LANGUAGE_CODE %}
+        {% if lang_urls %}{% with url=lang_urls|get_item:code %}
+        <a href="{{ url }}" class="rounded-lg border border-slate-200 bg-slate-100 px-2.5 py-1 text-xs font-bold uppercase text-sky-600 dark:border-slate-700 dark:bg-slate-800 dark:text-sky-400">{{ code }}</a>
+        {% endwith %}{% else %}{% translate_url code as alt_url %}
+        <a href="{{ alt_url }}" class="rounded-lg border border-slate-200 bg-slate-100 px-2.5 py-1 text-xs font-bold uppercase text-sky-600 dark:border-slate-700 dark:bg-slate-800 dark:text-sky-400">{{ code }}</a>
+        {% endif %}
       {% endif %}{% endfor %}
       <button data-menu-toggle type="button" aria-label="{% trans 'Toggle menu' %}" class="p-2 text-slate-800 dark:text-slate-300">
         <span data-menu-open-icon>{% icon 'menu' 'w-6 h-6' %}</span>
@@ -91,9 +98,12 @@
         {% endfor %}
       </div>
     </div>
-    <a href="/#tariffs" class="flex w-full items-center gap-2 py-2 text-left text-sm font-semibold hover:text-sky-600">{% icon 'sparkles' 'w-4 h-4 text-sky-500' %}{% trans "Tariffs" %}</a>
-    <a href="/#guide" class="flex w-full items-center gap-2 py-2 text-left text-sm font-semibold hover:text-sky-600">{% icon 'file-text' 'w-4 h-4 text-amber-500' %}{% trans "SUP Guide" %}</a>
-    <a href="/#faq" class="flex w-full items-center gap-2 py-2 text-left text-sm font-semibold hover:text-sky-600">{% icon 'help-circle' 'w-4 h-4 text-sky-500' %}{% trans "FAQ" %}</a>
+    {% for link in menu_links %}
+    <a href="{% if link.url|slice:':1' == '#' %}/{{ LANGUAGE_CODE }}/{{ link.url }}{% else %}/{{ LANGUAGE_CODE }}{{ link.url }}{% endif %}"
+       class="flex w-full items-center gap-2 py-2 text-left text-sm font-semibold hover:text-sky-600">
+      {% if link.icon %}{% icon link.icon 'w-4 h-4 text-sky-500' %}{% endif %}<span>{{ link.label }}</span>
+    </a>
+    {% endfor %}
     <a href="https://wa.me/{{ site.whatsapp_number }}" target="_blank" rel="noopener noreferrer"
        class="mt-1 flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 py-2.5 text-center text-xs font-extrabold text-white shadow-md">
       {% icon 'smartphone' 'w-4 h-4' %}{% trans "WhatsApp Quick Order" %}
