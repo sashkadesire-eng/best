@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 
 class Stage0SmokeTests(TestCase):
@@ -25,6 +25,7 @@ class Stage0SmokeTests(TestCase):
     def test_booking_placeholder(self):
         self.assertEqual(self.client.get("/en/booking/").status_code, 200)
 
+    @override_settings(DEBUG=True)
     def test_styleguide_available_in_debug(self):
         self.assertEqual(self.client.get("/en/styleguide/").status_code, 200)
 
