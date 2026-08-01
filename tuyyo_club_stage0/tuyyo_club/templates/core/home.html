@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load i18n icons %}
+
+{% block content %}
+{# HERO — 1:1 з HomePage.tsx #}
+<section class="relative flex min-h-[92vh] items-center justify-center overflow-hidden bg-slate-950 px-4 pb-24 pt-16 text-white sm:min-h-[calc(100vh-5rem)] sm:pb-32 sm:pt-24">
+  <div class="absolute inset-0 z-0 bg-gradient-to-br from-slate-950 via-sky-950/80 to-slate-950">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(14,165,233,0.35),transparent)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_85%_75%,rgba(20,184,166,0.25),transparent_50%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_15%_65%,rgba(56,189,248,0.2),transparent_45%)]"></div>
+  </div>
+  <div class="pointer-events-none absolute left-1/2 top-1/4 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky-500/15 blur-[140px]"></div>
+
+  <div class="relative z-10 mx-auto max-w-7xl space-y-6 text-center">
+    <div class="inline-flex items-center gap-1.5 rounded-full border border-sky-500/30 bg-sky-500/20 px-4 py-1.5 text-xs font-extrabold text-sky-300 shadow-lg backdrop-blur-md">
+      {% icon 'map-pin' 'w-4 h-4 text-sky-400' %}
+      <span>{% trans "Costa Blanca, Spain" %}</span>
+    </div>
+    <h1 class="text-4xl font-black leading-[1.1] tracking-tight text-white sm:text-6xl lg:text-7xl">
+      {% trans "Sea. Sun." %}
+      <span class="bg-gradient-to-r from-sky-400 via-teal-300 to-sky-200 bg-clip-text text-transparent">{% trans "Freedom." %}</span>
+    </h1>
+    <p class="mx-auto max-w-4xl space-y-1.5 text-base font-medium leading-relaxed text-slate-200 sm:text-xl">
+      <span class="block font-semibold">{% trans "Explore Benidorm, Altea, Villajoyosa, Calpe & Alicante." %}</span>
+      <span class="block text-sm text-slate-300 sm:text-lg">{% trans "Top quality inflatable paddleboards with beach delivery or free base pickup." %}</span>
+    </p>
+    <div class="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
+      <a href="{% url 'booking' %}"
+         class="w-full rounded-2xl bg-gradient-to-r from-sky-500 to-teal-400 px-8 py-4 text-lg font-black text-slate-950 shadow-xl shadow-sky-500/25 transition-all hover:-translate-y-0.5 hover:from-sky-400 hover:to-teal-300 sm:w-auto">
+        {% trans "Reserve SUP Board" %}
+      </a>
+      <a href="https://wa.me/{{ site.whatsapp_number }}" target="_blank" rel="noopener noreferrer"
+         class="flex w-full items-center justify-center gap-2.5 rounded-2xl bg-emerald-600 px-6 py-4 text-base font-extrabold text-white shadow-lg shadow-emerald-600/30 transition-all hover:bg-emerald-500 sm:w-auto">
+        {% icon 'phone' 'w-5 h-5' %}{% trans "WhatsApp Quick Booking" %}
+      </a>
+    </div>
+  </div>
+</section>
+
+{# Якірні заглушки секцій (контент — Етап 3; навігаційні хеші вже працюють) #}
+{% for anchor, label in anchors %}
+<section id="{{ anchor }}" class="mx-auto max-w-7xl scroll-mt-24 px-4 py-16 sm:px-6 lg:px-8">
+  <div class="rounded-3xl border border-dashed border-slate-300 p-10 text-center dark:border-slate-700">
+    <span class="text-xs font-extrabold uppercase tracking-widest text-sky-600">#{{ anchor }}</span>
+    <h2 class="mt-2 text-2xl font-black">{{ label }}</h2>
+    <p class="mt-1 text-xs text-slate-500">Секція буде наповнена в Етапі 3 (1:1 з референсом)</p>
+  </div>
+</section>
+{% endfor %}
+{% endblock %}

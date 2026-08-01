@@ -1,0 +1,13 @@
+{% load seo %}
+<title>{% firstof meta_title site.default_meta_title %}</title>
+<meta name="description" content="{% firstof meta_description site.default_meta_description %}">
+{% canonical %}
+{% render_alternates %}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ site.name }}">
+<meta property="og:title" content="{% firstof meta_title site.default_meta_title %}">
+<meta property="og:description" content="{% firstof meta_description site.default_meta_description %}">
+{% canonical_url as og_url %}<meta property="og:url" content="{{ og_url }}">
+<meta property="og:locale" content="{{ LANGUAGE_CODE }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0284c7">

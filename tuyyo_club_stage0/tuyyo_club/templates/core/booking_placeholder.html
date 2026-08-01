@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="mx-auto max-w-3xl px-4 py-24 text-center">
+  <span class="text-xs font-extrabold uppercase tracking-widest text-sky-600">/booking/</span>
+  <h1 class="mt-3 text-3xl font-black">6-Step Booking Wizard</h1>
+  <p class="mt-3 text-sm text-slate-500">
+    Реалізується в Етапі 5–6: session state-machine + HTMX, PricingService,
+    серверний календар, Bizum QR, PDF-ваучер, UUID-посилання.
+  </p>
+  <a href="{% url 'home' %}" class="mt-8 inline-block rounded-2xl bg-sky-500 px-6 py-3 text-sm font-extrabold text-white">← Home</a>
+</section>
+{% endblock %}

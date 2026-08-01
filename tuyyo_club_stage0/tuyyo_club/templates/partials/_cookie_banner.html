@@ -1,0 +1,16 @@
+{% load i18n icons %}
+<div data-cookie-banner class="fixed inset-x-0 bottom-0 z-50 hidden border-t border-slate-800 bg-slate-900 p-4 text-xs text-slate-300 shadow-2xl">
+  <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
+    <div class="flex items-center gap-3">
+      {% icon 'cookie' 'w-6 h-6 shrink-0 text-amber-400' %}
+      <p class="leading-relaxed">
+        {% blocktrans %}We use strictly necessary cookies to process your SUP booking and ensure smooth PWA functionality. Under LOPDGDD / GDPR laws, no tracking cookies are stored without consent.{% endblocktrans %}
+        <a href="/{{ LANGUAGE_CODE }}/cookie-policy/" class="font-semibold text-sky-400 hover:underline">{% trans "Read Cookie Policy" %}</a>
+      </p>
+    </div>
+    <button data-cookie-accept type="button"
+            class="flex shrink-0 items-center gap-1 rounded-xl bg-sky-500 px-4 py-2 text-xs font-bold text-slate-950 transition-colors hover:bg-sky-400">
+      {% icon 'shield-check' 'w-3.5 h-3.5' %}{% trans "Accept Cookies" %}
+    </button>
+  </div>
+</div>

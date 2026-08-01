@@ -1,0 +1,79 @@
+{% load i18n icons %}
+<footer class="border-t border-slate-800 bg-slate-950 text-sm text-slate-400">
+  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5 lg:gap-12">
+      {# Бренд + юридичний блок (1:1 m_2.html) #}
+      <div class="space-y-4 lg:col-span-2">
+        <div class="flex items-center gap-3">
+          <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-sky-500 to-teal-400 p-0.5">
+            <div class="flex h-full w-full items-center justify-center rounded-[10px] bg-slate-950">
+              {% icon 'waves' 'w-5 h-5 text-sky-400' %}
+            </div>
+          </div>
+          <div>
+            <span class="text-xl font-bold tracking-tight text-white">{{ site.name }}</span>
+            <span class="block text-[10px] font-semibold uppercase tracking-widest text-sky-400">Costa Blanca SUP Rental</span>
+          </div>
+        </div>
+        <p class="max-w-sm text-xs leading-relaxed text-slate-400">
+          {% blocktrans %}Mobile Stand-Up Paddleboard rental service with direct beach and hotel delivery across Benidorm, Altea, Villajoyosa, Calpe, and Alicante.{% endblocktrans %}
+        </p>
+        <div class="space-y-1.5 border-l-2 border-sky-500/40 pl-3 text-xs text-slate-400">
+          <p><strong class="text-slate-200">{% trans "Legal Entity:" %}</strong> {{ site.company_legal_name }}</p>
+          <p><strong class="text-slate-200">{% trans "CIF / NIF:" %}</strong> {{ site.cif }}</p>
+          <p><strong class="text-slate-200">{% trans "Tourism License:" %}</strong> {{ site.licencia }}</p>
+          <p><strong class="text-slate-200">{% trans "RC Insurance:" %}</strong> {{ site.seguro_rc }}</p>
+        </div>
+      </div>
+
+      {# Локації #}
+      <div class="space-y-3">
+        <h3 class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-200">
+          {% icon 'map-pin' 'w-3.5 h-3.5 text-sky-400' %}{% trans "Locations" %}
+        </h3>
+        <ul class="space-y-2 text-xs">
+          {% for loc in site.locations %}
+          <li><a href="/{{ LANGUAGE_CODE }}/sup-rental-{{ loc.slug }}/" class="transition-colors hover:text-sky-400">{% blocktrans with name=loc.name %}SUP Rental {{ name }}{% endblocktrans %}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      {# Legal #}
+      <div class="space-y-3">
+        <h3 class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-200">
+          {% icon 'shield-check' 'w-3.5 h-3.5 text-teal-400' %}{% trans "Legal Notice" %}
+        </h3>
+        <ul class="space-y-2 text-xs">
+          <li><a href="/{{ LANGUAGE_CODE }}/terms-and-safety/" class="transition-colors hover:text-sky-400">{% trans "Terms & Conditions" %}</a></li>
+          <li><a href="/{{ LANGUAGE_CODE }}/privacy-policy/" class="transition-colors hover:text-sky-400">{% trans "Privacy Policy" %}</a></li>
+          <li><a href="/{{ LANGUAGE_CODE }}/cookie-policy/" class="transition-colors hover:text-sky-400">{% trans "Cookie Policy" %}</a></li>
+          <li><a href="/{{ LANGUAGE_CODE }}/legal-notice/" class="transition-colors hover:text-sky-400">{% trans "Legal Notice" %}</a></li>
+        </ul>
+      </div>
+
+      {# Контакти + оплата #}
+      <div class="space-y-3">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-200">{% trans "Contact & Payment" %}</h3>
+        <div class="space-y-2 text-xs">
+          <a href="https://wa.me/{{ site.whatsapp_number }}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-slate-300 hover:text-sky-400">{% icon 'phone' 'w-3.5 h-3.5 text-emerald-400' %}{{ site.phone }}</a>
+          <a href="mailto:{{ site.email }}" class="flex items-center gap-2 text-slate-300 hover:text-sky-400">{% icon 'mail' 'w-3.5 h-3.5 text-sky-400' %}{{ site.email }}</a>
+          <a href="{{ site.maps_url }}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-slate-300 hover:text-sky-400">{% icon 'map-pin' 'w-3.5 h-3.5 shrink-0 text-rose-400' %}{{ site.address }}</a>
+          <div class="flex items-center gap-2 pt-2">
+            <span class="rounded border border-slate-800 bg-slate-900 px-2 py-1 text-[10px] font-bold text-sky-400">Bizum</span>
+            <span class="rounded border border-slate-800 bg-slate-900 px-2 py-1 text-[10px] font-bold text-emerald-400">Cash on Delivery</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {# Нижній бар #}
+    <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-900 pt-6 text-xs text-slate-500 sm:flex-row">
+      <p>{{ site.copyright }} — {% trans "All rights reserved." %}</p>
+      <div class="flex items-center gap-1 text-[11px]">
+        <span>{% trans "Made with" %}</span>
+        {% icon 'heart' 'w-3 h-3 text-red-500 fill-red-500' %}
+        <span>{% trans "for SUP lovers along Costa Blanca" %}</span>
+      </div>
+    </div>
+  </div>
+</footer>
